@@ -1,0 +1,6 @@
+#cloud-config
+package_upgrade: true
+runcmd:
+  - wget https://raw.githubusercontent.com/stp8954/automations/master/mountdisk.sh -o /tmp/mountdisk.sh
+  - chmod +x /tmp/mountdisk.sh
+  - sh /tmp/mountdisk.sh
