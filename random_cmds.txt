@@ -1,0 +1,30 @@
+az group list | jq '.[].name' | while read -r line; do "az group delete -n $line --no-wait --yes" ; done
+az vm restart --ids $(az vm list -g ClusterSetupTest --query "[].id"  -o tsv)
+
+
+
+az vm create --resource-group myResourceGroupVM --name myVM2 --image Canonical:UbuntuServer:16.04.0-LTS:latest --generate-ssh-keys
+
+
+az group create --name ClusterSetupTest --location westus
+
+az vm create \
+  --resource-group ClusterSetupTest \
+  --name testVM \
+  --image Canonical:UbuntuServer:16.04.0-LTS:latest \
+  --size Standard_DS2_v2 \
+  --data-disk-sizes-gb 128 \
+  --generate-ssh-keys
+
+
+
+(echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sdc
+sudo mkfs -t ext4 /dev/sdc1
+sudo mkdir /datadrive && sudo mount /dev/sdc1 /datadrive
+uuid="$(sudo -i blkid | sed -n '/sdc1/s/.* UUID=\"\([^\"]*\)\".*/\1/p' )"
+
+
+cat >> /etc/fstab << EOF
+UUID=$uuid   /datadrive  ext4    defaults,nofail,barrier=0   1  2
+EOF
+

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# all inputs to cluster provisioning are here. You need to edit this file to your linking
+
+USER=hadoop
+
+CLI_CMD=slcli
+
+CLUSTER_TYPE=hadoopv2
+
+KEYNAME=tempkey2
+
+# which file will contain the list of the master node  -- hostnames and ips ?
+MASTERNODE_FILENAME=master.txt
+
+# which file will contain the list of the master node -- hostname only ?
+MASTERNODE_FILENAME_HOSTS=master
+
+# which file will contain the list of slaves node[s] with hostnames and ips?
+SLAVENODE_FILENAME=slaves.txt
+
+# which file will contain the list of slaves node[s] with only hostnames ?
+SLAVENODE_FILENAME_HOSTS=slaves
+
+# this will be the hostname for the master node of the cluster
+# please don't change this yet -- "master" is hard coded in hadoop conf files
+# and is not updating yet :)
+MASTER_HOSTNAME=master
+
+# this will be the hostname for the slave nodes of the cluster
+SLAVES_BASE_HOSTNAME=slaves
+
+# the domain name for the cluster
+DOMAIN=stp8954.com
+
+NUM_SLAVES=2
+
+DATACENTER=sjc01
+
+MASTER_CPU=2
+
+MASTER_MEM=4096
+MASTER_DISK=100
+
+MASTER_OS=UBUNTU_14_64
+
+SLAVE_CPU=2
+SLAVE_MEM=4096
+SLAVE_DISK=100
+
+SLAVE_OS=UBUNTU_14_64
+
+MASTER_NIC=1000
+SLAVE_NIC=1000
